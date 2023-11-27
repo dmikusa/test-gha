@@ -1,0 +1,32 @@
+name: Update Gradle Dependencies
+
+on:
+  schedule:
+    - cron: 0 2 * * 1
+  workflow_dispatch:
+
+jobs:
+  make-a-pr:
+    name: Make a PR
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make Changes
+        run: ./increment.sh
+      - uses: peter-evans/create-pull-request@v5
+        with:
+          body: |-
+            Increment Count
+
+            Increment the Count to the next value and generate a new file.
+          branch: update/make-changes
+          commit-message: |-
+            Increment Count
+
+            Increment the Count to the next value and generate a new file.
+          delete-branch: true
+          author: 'GitHub <noreply@github.com>'
+          committer: 'GitHub <noreply@github.com>'
+          title:
+            Increment Count
